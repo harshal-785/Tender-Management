@@ -1,0 +1,250 @@
+<div class="settings-container">
+    <h1>Settings</h1>
+    
+    <div class="settings-content">
+      <div class="settings-tabs">
+        <div class="tab" [ngClass]="{'active': activeTab === 'profile'}" (click)="setActiveTab('profile')">
+          <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </div>
+        <div class="tab" [ngClass]="{'active': activeTab === 'notifications'}" (click)="setActiveTab('notifications')">
+          <i class="fas fa-bell"></i>
+          <span>Notifications</span>
+        </div>
+        <div class="tab" [ngClass]="{'active': activeTab === 'security'}" (click)="setActiveTab('security')">
+          <i class="fas fa-lock"></i>
+          <span>Security</span>
+        </div>
+        <div class="tab" [ngClass]="{'active': activeTab === 'company'}" (click)="setActiveTab('company')">
+          <i class="fas fa-building"></i>
+          <span>Company</span>
+        </div>
+        <div class="tab" [ngClass]="{'active': activeTab === 'billing'}" (click)="setActiveTab('billing')">
+          <i class="fas fa-credit-card"></i>
+          <span>Billing</span>
+        </div>
+      </div>
+      
+      <div class="tab-content">
+        <!-- Profile Settings -->
+        <div class="tab-pane" *ngIf="activeTab === 'profile'">
+          <h2>Profile Settings</h2>
+          
+          <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+            <div class="profile-header">
+              <div class="profile-avatar">
+                <img src="/api/placeholder/100/100" alt="Profile Photo">
+                <button type="button" class="btn-change-photo">Change Photo</button>
+              </div>
+              
+              <div class="profile-info">
+                <h3>John Doe</h3>
+                <p>Procurement Manager</p>
+                <p>Member since: Jan 2024</p>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" formControlName="name">
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" formControlName="email">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" formControlName="phone">
+              </div>
+              
+              <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" id="company" formControlName="company">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="position">Position</label>
+                <input type="text" id="position" formControlName="position">
+              </div>
+              
+              <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" formControlName="address">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" formControlName="city">
+              </div>
+              
+              <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" formControlName="country">
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn-save">Save Changes</button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Notifications Settings -->
+        <div class="tab-pane" *ngIf="activeTab === 'notifications'">
+          <h2>Notification Settings</h2>
+          
+          <form [formGroup]="notificationForm" (ngSubmit)="saveNotifications()">
+            <div class="notification-option">
+              <div class="option-info">
+                <h3>Email Notifications</h3>
+                <p>Receive email notifications for important updates</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" formControlName="emailNotifications">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            
+            <div class="notification-option">
+              <div class="option-info">
+                <h3>Tender Alerts</h3>
+                <p>Get notified when new tenders matching your criteria are published</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" formControlName="tenderAlerts">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            
+            <div class="notification-option">
+              <div class="option-info">
+                <h3>Bid Updates</h3>
+                <p>Receive updates on your bid status changes</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" formControlName="bidUpdates">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            
+            <div class="notification-option">
+              <div class="option-info">
+                <h3>System Announcements</h3>
+                <p>Get notified about system maintenance and updates</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" formControlName="systemAnnouncements">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            
+            <div class="notification-option">
+              <div class="option-info">
+                <h3>Marketing Emails</h3>
+                <p>Receive promotional content and newsletter</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" formControlName="marketingEmails">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn-save">Save Preferences</button>
+            </div>
+          </form>
+        </div>
+        <!-- Security Settings -->
+        <div class="tab-pane" *ngIf="activeTab === 'security'">
+          <h2>Security Settings</h2>
+          
+          <form [formGroup]="securityForm" (ngSubmit)="savePassword()">
+            <div class="form-section">
+              <h3>Change Password</h3>
+              
+              <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" formControlName="currentPassword">
+              </div>
+              
+              <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" formControlName="newPassword">
+                <div class="password-strength" *ngIf="securityForm.get('newPassword')?.value">
+                  <div class="strength-meter" [ngClass]="{'weak': securityForm.get('newPassword')?.value?.length < 8, 
+                                                       'medium': securityForm.get('newPassword')?.value?.length >= 8 && securityForm.get('newPassword')?.value?.length < 12,
+                                                       'strong': securityForm.get('newPassword')?.value?.length >= 12}"></div>
+                  <span [ngClass]="{'weak-text': securityForm.get('newPassword')?.value?.length < 8, 
+                                  'medium-text': securityForm.get('newPassword')?.value?.length >= 8 && securityForm.get('newPassword')?.value?.length < 12,
+                                  'strong-text': securityForm.get('newPassword')?.value?.length >= 12}">
+                    {{ securityForm.get('newPassword')?.value?.length < 8 ? 'Weak' : 
+                       securityForm.get('newPassword')?.value?.length < 12 ? 'Medium' : 'Strong' }}
+                  </span>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword">
+                <div class="error-message" *ngIf="securityForm.get('confirmPassword')?.value && 
+                                               securityForm.get('newPassword')?.value !== securityForm.get('confirmPassword')?.value">
+                  Passwords do not match
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-section">
+              <h3>Two-Factor Authentication</h3>
+              <p>Add an extra layer of security to your account</p>
+              
+              <button type="button" class="btn-secondary">Enable 2FA</button>
+            </div>
+            
+            <div class="form-section">
+              <h3>Active Sessions</h3>
+              <div class="session-item">
+                <div class="session-info">
+                  <p><strong>Current Session</strong> - Chrome on Windows</p>
+                  <p class="session-details">Started: Today at 9:45 AM</p>
+                </div>
+                <button type="button" class="btn-text">This is you</button>
+              </div>
+              
+              <div class="session-item">
+                <div class="session-info">
+                  <p><strong>Mobile App</strong> - iPhone 15</p>
+                  <p class="session-details">Last active: Yesterday at 6:30 PM</p>
+                </div>
+                <button type="button" class="btn-text-danger">Logout</button>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn-save">Update Password</button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Company Settings -->
+        <div class="tab-pane" *ngIf="activeTab === 'company'">
+          <h2>Company Settings</h2>
+          <p>This section is currently under development.</p>
+        </div>
+        
+        <!-- Billing Settings -->
+        <div class="tab-pane" *ngIf="activeTab === 'billing'">
+          <h2>Billing & Subscription</h2>
+          <p>This section is currently under development.</p>
+        </div>
+      </div>
+    </div>
+  </div>

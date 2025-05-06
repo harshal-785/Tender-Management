@@ -1,0 +1,148 @@
+<div class="analytics-container">
+    <h1>Analytics Dashboard</h1>
+    
+    <div class="analytics-overview">
+      <div class="stat-card">
+        <h3>Total Tenders</h3>
+        <p class="stat-value">23</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Bids</h3>
+        <p class="stat-value">41</p>
+      </div>
+      <div class="stat-card">
+        <h3>Active Tenders</h3>
+        <p class="stat-value">12</p>
+      </div>
+      <div class="stat-card">
+        <h3>Success Rate</h3>
+        <p class="stat-value">68%</p>
+      </div>
+    </div>
+    
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Tender Status Distribution</h3>
+        <div class="chart-placeholder">
+          <div class="pie-chart">
+            <div class="chart-segment" style="--percentage: 52%; --color: #2ecc71;"></div>
+            <div class="chart-segment" style="--percentage: 35%; --color: #e74c3c;"></div>
+            <div class="chart-segment" style="--percentage: 13%; --color: #3498db;"></div>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #2ecc71;"></div>
+              <span>Open (12)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #e74c3c;"></div>
+              <span>Closed (8)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #3498db;"></div>
+              <span>Draft (3)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <h3>Bid Status Distribution</h3>
+        <div class="chart-placeholder">
+          <div class="pie-chart">
+            <div class="chart-segment" style="--percentage: 44%; --color: #f39c12;"></div>
+            <div class="chart-segment" style="--percentage: 34%; --color: #2ecc71;"></div>
+            <div class="chart-segment" style="--percentage: 22%; --color: #e74c3c;"></div>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #f39c12;"></div>
+              <span>Pending (18)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #2ecc71;"></div>
+              <span>Approved (14)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #e74c3c;"></div>
+              <span>Rejected (9)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chart-card full-width">
+        <h3>Monthly Tenders (2025)</h3>
+        <div class="chart-placeholder">
+          <div class="bar-chart">
+            <div class="bar-container">
+              <div class="bar" style="--height: 62.5%;"></div>
+              <div class="bar-label">Jan</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="--height: 87.5%;"></div>
+              <div class="bar-label">Feb</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="--height: 50%;"></div>
+              <div class="bar-label">Mar</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="--height: 75%;"></div>
+              <div class="bar-label">Apr</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="--height: 100%;"></div>
+              <div class="bar-label">May</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <h3>Tenders by Category</h3>
+        <div class="chart-placeholder">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Count</th>
+                <th>Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of categoryData">
+                <td>{{ item.name }}</td>
+                <td>{{ item.value }}</td>
+                <td>{{ (item.value / 29 * 100).toFixed(1) }}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <h3>Performance Metrics</h3>
+        <div class="chart-placeholder">
+          <div class="metrics-list">
+            <div class="metric-item">
+              <div class="metric-label">Average Bids per Tender</div>
+              <div class="metric-value">4.5</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-label">Average Response Time</div>
+              <div class="metric-value">3.2 days</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-label">Completion Rate</div>
+              <div class="metric-value">89%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-label">Budget Utilization</div>
+              <div class="metric-value">94%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

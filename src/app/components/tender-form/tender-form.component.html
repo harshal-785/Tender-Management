@@ -1,0 +1,105 @@
+<div class="tender-form-container">
+  <h2 class="page-title">{{ pageTitle }}</h2>
+  
+  <form [formGroup]="tenderForm" (ngSubmit)="onSubmit()" class="tender-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="title">Title <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title" 
+          placeholder="Enter tender title"
+          [ngClass]="{'input-error': tenderForm.get('title')?.invalid && tenderForm.get('title')?.touched}"
+        >
+        <div *ngIf="tenderForm.get('title')?.invalid && tenderForm.get('title')?.touched" class="error-message">
+          <i class="error-icon fas fa-exclamation-circle"></i>
+          Title is required and must be at least 5 characters.
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="category">Category <span class="required">*</span></label>
+        <select 
+          id="category" 
+          formControlName="category"
+          [ngClass]="{'input-error': tenderForm.get('category')?.invalid && tenderForm.get('category')?.touched}"
+        >
+          <option value="">Select a category</option>
+          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        </select>
+        <div *ngIf="tenderForm.get('category')?.invalid && tenderForm.get('category')?.touched" class="error-message">
+          <i class="error-icon fas fa-exclamation-circle"></i>
+          Category is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="description">Description <span class="required">*</span></label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        rows="5" 
+        placeholder="Enter detailed description of the tender"
+        [ngClass]="{'input-error': tenderForm.get('description')?.invalid && tenderForm.get('description')?.touched}"
+      ></textarea>
+      <div *ngIf="tenderForm.get('description')?.invalid && tenderForm.get('description')?.touched" class="error-message">
+        <i class="error-icon fas fa-exclamation-circle"></i>
+        Description is required and must be at least 10 characters.
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="budget">Budget <span class="required">*</span></label>
+        <div class="input-with-prefix">
+          <span class="currency-symbol">$</span>
+          <input 
+            type="number" 
+            id="budget" 
+            formControlName="budget" 
+            placeholder="0.00"
+            [ngClass]="{'input-error': tenderForm.get('budget')?.invalid && tenderForm.get('budget')?.touched}"
+          >
+        </div>
+        <div *ngIf="tenderForm.get('budget')?.invalid && tenderForm.get('budget')?.touched" class="error-message">
+          <i class="error-icon fas fa-exclamation-circle"></i>
+          Budget is required and must be greater than 0.
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="deadline">Deadline <span class="required">*</span></label>
+        <input 
+          type="date" 
+          id="deadline" 
+          formControlName="deadline"
+          [ngClass]="{'input-error': tenderForm.get('deadline')?.invalid && tenderForm.get('deadline')?.touched}"
+        >
+        <div *ngIf="tenderForm.get('deadline')?.invalid && tenderForm.get('deadline')?.touched" class="error-message">
+          <i class="error-icon fas fa-exclamation-circle"></i>
+          Deadline is required.
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status">
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+          <option value="awarded">Awarded</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" routerLink="/tenders" class="btn btn-cancel">
+        <i class="fas fa-times"></i> Cancel
+      </button>
+      <button type="submit" class="btn btn-submit" [disabled]="tenderForm.invalid">
+        <i class="fas fa-save"></i> {{ isEditMode ? 'Update' : 'Create' }} Tender
+      </button>
+    </div>
+  </form>
+</div>

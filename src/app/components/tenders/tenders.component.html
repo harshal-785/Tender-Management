@@ -1,0 +1,58 @@
+<div class="tenders-container">
+    <div class="tenders-header">
+      <h1>Tenders Management</h1>
+      <button class="btn-add-tender" routerLink="/add-tender">+ Create New Tender</button>
+    </div>
+    
+    <div class="tenders-filters">
+      <div class="search-box">
+        <input type="text" placeholder="Search tenders...">
+        <i class="fas fa-search"></i>
+      </div>
+      
+      <div class="filter-options">
+        <select>
+          <option value="">All Statuses</option>
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select>
+        
+        <select>
+          <option value="">Sort By</option>
+          <option value="deadline">Deadline</option>
+          <option value="budget">Budget</option>
+          <option value="bids">Number of Bids</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="tenders-list">
+      <div class="tender-card" *ngFor="let tender of tenders">
+        <div class="tender-status" [ngClass]="{'status-open': tender.status === 'Open', 'status-closed': tender.status === 'Closed'}">
+          {{ tender.status }}
+        </div>
+        
+        <h3>{{ tender.title }}</h3>
+        
+        <div class="tender-info">
+          <div class="info-item">
+            <i class="fas fa-calendar"></i>
+            <span>Deadline: {{ tender.deadline }}</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Budget: {{ tender.budget }}</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-file-alt"></i>
+            <span>Bids: {{ tender.bids }}</span>
+          </div>
+        </div>
+        
+        <div class="tender-actions">
+          <button class="btn-view">View Details</button>
+          <button class="btn-edit">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>

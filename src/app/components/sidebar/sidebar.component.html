@@ -1,0 +1,53 @@
+<div class="sidenav-container" [class.sidenav-expanded]="isExpanded">
+  <!-- Toggle button for mobile -->
+  <div class="sidenav-toggle" (click)="toggleSidenav()">
+    <i class="fas" [ngClass]="isExpanded ? 'fa-times' : 'fa-bars'"></i>
+  </div>
+  
+  <!-- Sidebar content -->
+  <aside class="sidenav">
+    <div class="logo">
+      <img src="/api/placeholder/80/80" alt="TMS Logo">
+    </div>
+    
+    <nav class="sidenav-nav">
+      <ul>
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active" (click)="closeOnMobile()">
+            <i class="fas fa-chart-line"></i>
+            <span>Bids</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/tenders" routerLinkActive="active" (click)="closeOnMobile()">
+            <i class="fas fa-file-contract"></i>
+            <span>Tenders</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/add-tender" routerLinkActive="active" (click)="closeOnMobile()">
+            <i class="fas fa-plus-circle"></i>
+            <span>Create Tender</span>
+          </a>
+        </li>
+
+        
+        <li>
+          <a routerLink="/analytics" routerLinkActive="active" (click)="closeOnMobile()">
+            <i class="fas fa-chart-pie"></i>
+            <span>Analytics</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/settings" routerLinkActive="active" (click)="closeOnMobile()">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  
+  <!-- Overlay for mobile when nav is open -->
+  <div class="sidenav-overlay" *ngIf="isExpanded" (click)="toggleSidenav()"></div>
+</div>

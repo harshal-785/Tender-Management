@@ -1,0 +1,195 @@
+<div class="dashboard-container">
+  <h2>Dashboard Overview</h2>
+  
+  <div class="stats-cards">
+    <div class="stat-card">
+      <div class="icon-wrapper green">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ openTenders }}</div>
+        <div class="stat-label">Open Tenders</div>
+      </div>
+      <div class="stat-footer">
+        <span>Active opportunities</span>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="icon-wrapper gray">
+        <i class="fas fa-lock"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ closedTenders }}</div>
+        <div class="stat-label">Closed Tenders</div>
+      </div>
+      <div class="stat-footer">
+        <span>No longer accepting bids</span>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="icon-wrapper blue">
+        <i class="fas fa-award"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ awardedTenders }}</div>
+        <div class="stat-label">Awarded Tenders</div>
+      </div>
+      <div class="stat-footer">
+        <span>Successfully completed</span>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="icon-wrapper orange">
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ formatCurrency(totalBudget) }}</div>
+        <div class="stat-label">Total Budget</div>
+      </div>
+      <div class="stat-footer">
+        <span>Across all tenders</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="row mt-20">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3>Tender Categories</h3>
+          <button class="export-btn" (click)="exportChartAsImage('category')">
+            <i class="fas fa-download"></i> Export
+          </button>
+        </div>
+        <div class="card-body chart-container pie-chart-container">
+          <canvas #categoryChartCanvas></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3>Tender Status</h3>
+          <button class="export-btn" (click)="exportChartAsImage('status')">
+            <i class="fas fa-download"></i> Export
+          </button>
+        </div>
+        <div class="card-body chart-container">
+          <canvas #statusChartCanvas></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3>Recent Tenders</h3>
+          <a routerLink="/tenders" class="view-all">View All</a>
+        </div>
+        <div class="card-body">
+          <table class="tender-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Budget</th>
+                <th>Deadline</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tender of tenders.slice(0, 5)">
+                <td><a [routerLink]="['/tenders', tender.id]">{{ tender.title }}</a></td>
+                <td>{{ tender.category }}</td>
+                <td>{{ formatCurrency(tender.budget) }}</td>
+                <td>{{ tender.deadline | date }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="tender.status">
+                    {{ tender.status }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h3>Categories</h3>
+        </div>
+        <div class="card-body">
+          <div class="category-stats">
+            <div *ngFor="let category of categoryStats" class="category-item">
+              <div class="category-name">{{ category.name }}</div>
+              <div class="category-count">{{ category.count }}</div>
+              <div class="progress-bar">
+                <div class="progress" [style.width.%]="category.percentage"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mt-20">
+        <div class="card-header">
+          <h3>Quick Actions</h3>
+        </div>
+        <div class="card-body">
+          <div class="quick-actions">
+            <a routerLink="/add-tender" class="action-button">
+              <i class="fas fa-plus"></i>
+              <span>New Tender</span>
+            </a>
+            <a routerLink="/tenders" class="action-button">
+              <i class="fas fa-list"></i>
+              <span>View Tenders</span>
+            </a>
+            <button class="action-button" (click)="refreshDashboard()">
+              <i class="fas fa-sync-alt"></i>
+              <span>Refresh Data</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row mt-20">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>Upcoming Deadlines</h3>
+        </div>
+        <div class="card-body">
+          <div class="deadline-timeline">
+            <div *ngFor="let tender of upcomingDeadlines" class="timeline-item" [ngClass]="getUrgencyClass(tender.deadline)">
+              <div class="timeline-date">{{ tender.deadline | date }}</div>
+              <div class="timeline-content">
+                <h4><a [routerLink]="['/tenders', tender.id]">{{ tender.title }}</a></h4>
+                <p>{{ tender.description | slice:0:100 }}{{ tender.description.length > 100 ? '...' : '' }}</p>
+                <div class="timeline-footer">
+                  <span class="badge">{{ tender.category }}</span>
+                  <span class="budget">{{ formatCurrency(tender.budget) }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div *ngIf="upcomingDeadlines.length === 0" class="no-deadlines">
+              No upcoming deadlines in the next 30 days.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

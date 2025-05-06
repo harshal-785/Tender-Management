@@ -1,0 +1,25 @@
+<!-- Navbar Component -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <h1>Tender</h1>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-date">
+      <i class="far fa-calendar-alt"></i>
+      <span>{{ currentDate | date:'medium' }}</span>
+    </div>
+    <div class="navbar-user">
+      <span>Welcome, {{ username }}</span>
+      <div class="dropdown">
+        <button class="dropdown-toggle">
+          <i class="far fa-user-circle"></i>
+        </button>
+        <div class="dropdown-menu">
+          <a href="#">Profile</a>
+          <a href="#">Settings</a>
+          <a href="#" class="logout">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,66 @@
+`<div class="tender-list-container">
+    <h2>Tender Listings</h2>
+    
+    <div class="filters">
+      <div class="search-box">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          (keyup)="onSearch()" 
+          placeholder="Search tenders..."
+        >
+        <button (click)="onSearch()">Search</button>
+      </div>
+      
+      <div class="status-filter">
+        <label for="status-filter">Filter by Status</label>
+        <select id="status-filter" [(ngModel)]="filterStatus" (change)="onFilterChange()">
+          <option value="all">All</option>
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+          <option value="awarded">Awarded</option>
+        </select>
+      </div>
+      
+      <div class="add-btn">
+        <a routerLink="/add-tender" class="btn btn-primary">Add New Tender</a>
+      </div>
+    </div>
+    
+    <table class="tender-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Budget</th>
+          <th>Deadline</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tender of filteredTenders">
+          <td>{{ tender.id }}</td>
+          <td>{{ tender.title }}</td>
+          <td>{{ tender.category }}</td>
+          <td>{{ tender.budget | currency }}</td>
+          <td>{{ tender.deadline | date }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="tender.status">
+              {{ tender.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <a [routerLink]="['/tenders', tender.id]" class="btn btn-view">View</a>
+            <a [routerLink]="['/edit-tender', tender.id]" class="btn btn-edit">Edit</a>
+            <button (click)="deleteTender(tender.id)" class="btn btn-delete">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div *ngIf="filteredTenders.length === 0" class="no-results">
+      No tenders found matching your criteria.
+    </div>
+  </div>`

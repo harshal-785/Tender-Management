@@ -1,0 +1,45 @@
+`<div class="tender-details-container">
+    <div *ngIf="isLoading" class="loading">Loading...</div>
+    
+    <div *ngIf="!isLoading && tender">
+      <h2>Tender Details</h2>
+      
+      <div class="tender-header">
+        <h3>{{ tender.title }}</h3>
+        <span class="status-badge" [ngClass]="tender.status">{{ tender.status }}</span>
+      </div>
+      
+      <div class="tender-info">
+        <div class="info-item">
+          <strong>ID:</strong> {{ tender.id }}
+        </div>
+        <div class="info-item">
+          <strong>Category:</strong> {{ tender.category }}
+        </div>
+        <div class="info-item">
+          <strong>Budget:</strong> {{ tender.budget | currency }}
+        </div>
+        <div class="info-item">
+          <strong>Published Date:</strong> {{ tender.publishedDate | date }}
+        </div>
+        <div class="info-item">
+          <strong>Deadline:</strong> {{ tender.deadline | date }}
+        </div>
+      </div>
+      
+      <div class="tender-description">
+        <h4>Description</h4>
+        <p>{{ tender.description }}</p>
+      </div>
+      
+      <div class="action-buttons">
+        <a [routerLink]="['/tenders']" class="btn btn-back">Back to List</a>
+        <a [routerLink]="['/edit-tender', tender.id]" class="btn btn-edit">Edit Tender</a>
+      </div>
+    </div>
+    
+    <div *ngIf="!isLoading && !tender" class="not-found">
+      Tender not found.
+    </div>
+  </div>`
+  

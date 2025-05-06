@@ -1,0 +1,192 @@
+.tender-list-container {
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tender-list-container h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Filters Section */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+.search-box {
+  width: 800px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-box input {/* Decreased width */
+  height: 40px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.search-box button {
+  height: 40px;
+  width: 100px;
+  padding: 6px 14px;
+  font-size: 14px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-box button:hover {
+  background-color: #2980b9;
+}
+
+.status-filter {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  min-width: 180px;
+   margin-bottom: 4px;
+   gap: 10px;
+}
+
+.status-filter label {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2px;
+  margin-bottom: 4px;
+
+}
+
+.status-filter select {
+  height: 40px;
+  width: 250px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.add-btn .btn-primary {
+  background-color: #28a745;
+  color: #fff;
+  padding: 8px 18px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.add-btn .btn-primary:hover {
+  background-color: #218838;
+}
+
+.add-btn .icon {
+  margin-right: 6px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+
+/* Table Styling */
+.tender-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tender-table th,
+.tender-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tender-table th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.tender-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.status-badge.open {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.closed {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-badge.awarded {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions .btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.actions .btn-view {
+  background-color: #17a2b8;
+}
+
+.actions .btn-edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.actions .btn-delete {
+  background-color: #dc3545;
+}
+
+/* No Results */
+.no-results {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #888;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .add-btn {
+    margin-left: 0;
+
+  }
+}
