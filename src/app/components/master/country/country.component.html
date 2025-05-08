@@ -1,0 +1,15 @@
+<div class="country-wrapper">
+    <h2>Select Country</h2>
+    <select (change)="onCountryChange($event)" class="form-control">
+      <option value="" disabled selected>Select a country</option>
+      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+    </select>
+  
+    <div *ngIf="cities.length">
+      <h3>Cities in {{ selectedCountry }}</h3>
+      <ul class="city-list">
+        <li *ngFor="let city of cities">{{ city }}</li>
+      </ul>
+    </div>
+  </div>
+  

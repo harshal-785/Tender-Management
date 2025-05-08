@@ -189,3 +189,34 @@
   transition: all var(--transition-speed) ease;
   min-height: calc(100vh - var(--navbar-height));
 }
+
+.sidenav-nav .dropdown .submenu {
+  display: none;
+  padding-left: 20px;
+  flex-direction: column;
+}
+
+.sidenav-nav .dropdown.open .submenu {
+  display: flex;
+}
+
+.submenu-icon {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.dropdown.open .submenu-icon {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.dropdown.open .submenu {
+  max-height: 500px; /* Enough height for all items */
+  opacity: 1;
+}

@@ -1,0 +1,117 @@
+<!-- category.component.html -->
+<div class="category-container">
+  <div class="page-header">
+    <h2>Category Management</h2>
+    <p>Add, edit or choose from predefined categories for tenders</p>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="form-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>{{ isEditing ? 'Edit Category' : 'Add New Category' }}</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Category Name*</label>
+              <input 
+                type="text" 
+                id="name" 
+                formControlName="name" 
+                class="form-control"
+                [ngClass]="{'is-invalid': categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched}"
+              >
+              <div *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched" class="invalid-feedback">
+                <div *ngIf="categoryForm.get('name')?.errors?.['required']">Category name is required.</div>
+                <div *ngIf="categoryForm.get('name')?.errors?.['minlength']">Category name must be at least 3 characters.</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea 
+                id="description" 
+                formControlName="description" 
+                class="form-control"
+                rows="3"
+                [ngClass]="{'is-invalid': categoryForm.get('description')?.invalid && categoryForm.get('description')?.touched}"
+              ></textarea>
+              <div *ngIf="categoryForm.get('description')?.invalid && categoryForm.get('description')?.touched" class="invalid-feedback">
+                <div *ngIf="categoryForm.get('description')?.errors?.['maxlength']">Description cannot exceed 200 characters.</div>
+              </div>
+            </div>
+
+            <div class="button-group">
+              <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid">
+                {{ isEditing ? 'Update' : 'Add' }} Category
+              </button>
+              <button *ngIf="isEditing" type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-header">
+          <h3>Predefined Categories</h3>
+          <p>Quick add from common tender categories</p>
+        </div>
+        <div class="card-body">
+          <div class="predefined-categories">
+            <div *ngFor="let category of predefinedCategories" class="category-chip">
+              <span>{{ category }}</span>
+              <button class="add-btn" (click)="addPredefinedCategory(category)" title="Add this category">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>Category List</h3>
+          <div class="search-box">
+            <input type="text" placeholder="Search categories..." class="form-control">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="categories.length === 0" class="no-data">
+            <p>No categories added yet. Add your first category or choose from predefined ones.</p>
+          </div>
+          <table *ngIf="categories.length > 0" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Created On</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of categories">
+                <td>{{ category.name }}</td>
+                <td>{{ category.description || 'No description' }}</td>
+                <td>{{ category.createdAt | date:'medium' }}</td>
+                <td class="actions">
+                  <button class="btn btn-sm btn-primary" (click)="editCategory(category)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteCategory(category.id)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

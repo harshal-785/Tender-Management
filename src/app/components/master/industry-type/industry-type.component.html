@@ -1,0 +1,125 @@
+<!-- industry-type.component.html -->
+<div class="industry-container">
+  <div class="page-header">
+    <h2>Industry Type Management</h2>
+    <p>Add custom industry types or select from predefined options</p>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="form-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>{{ isEditing ? 'Edit Industry Type' : 'Add New Industry Type' }}</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="industryForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Industry Name*</label>
+              <input 
+                type="text" 
+                id="name" 
+                formControlName="name" 
+                class="form-control"
+                [ngClass]="{'is-invalid': industryForm.get('name')?.invalid && industryForm.get('name')?.touched}"
+              >
+              <div *ngIf="industryForm.get('name')?.invalid && industryForm.get('name')?.touched" class="invalid-feedback">
+                <div *ngIf="industryForm.get('name')?.errors?.['required']">Industry name is required.</div>
+                <div *ngIf="industryForm.get('name')?.errors?.['minlength']">Industry name must be at least 3 characters.</div>
+              </div>
+
+
+    <div class="list-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>Industry Types List</h3>
+          <div class="search-box">
+            <input 
+              type="text" 
+              placeholder="Search industries..." 
+              class="form-control"
+              [(ngModel)]="searchTerm"
+              (input)="filterIndustries()"
+            >
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="filteredIndustries.length === 0" class="no-data">
+            <p>No industry types found. Add your first industry type or choose from predefined ones.</p>
+          </div>
+          <table *ngIf="filteredIndustries.length > 0" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Created On</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let industry of filteredIndustries">
+                <td>{{ industry.name }}</td>
+                <td>{{ industry.description || 'No description' }}</td>
+                <td>
+                  <span class="badge" [ngClass]="industry.isPredefined ? 'badge-info' : 'badge-primary'">
+                    {{ industry.isPredefined ? 'Predefined' : 'Custom' }}
+                  </span>
+                </td>
+                <td>{{ industry.createdAt | date:'medium' }}</td>
+                <td class="actions">
+                  <button class="btn btn-sm btn-primary" (click)="editIndustry(industry)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteIndustry(industry.id)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea 
+                id="description" 
+                formControlName="description" 
+                class="form-control"
+                rows="3"
+                [ngClass]="{'is-invalid': industryForm.get('description')?.invalid && industryForm.get('description')?.touched}"
+              ></textarea>
+              <div *ngIf="industryForm.get('description')?.invalid && industryForm.get('description')?.touched" class="invalid-feedback">
+                <div *ngIf="industryForm.get('description')?.errors?.['maxlength']">Description cannot exceed 200 characters.</div>
+              </div>
+            </div>
+
+            <div class="button-group">
+              <button type="submit" class="btn btn-primary" [disabled]="industryForm.invalid">
+                {{ isEditing ? 'Update' : 'Add' }} Industry Type
+              </button>
+              <button *ngIf="isEditing" type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                Cancel
+              </button>
+            </div>
+
+
+      <div class="card mt-4">
+        <div class="card-header">
+          <h3>Predefined Industry Types</h3>
+          <p>Quick add from standard industry classifications</p>
+        </div>
+        <div class="card-body">
+          <div class="predefined-industries">
+            <div *ngFor="let industry of predefinedIndustries" class="industry-chip">
+              <span>{{ industry }}</span>
+              <button class="add-btn" (click)="addPredefinedIndustry(industry)" title="Add this industry">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            </div>
+        </div>
+      </div>

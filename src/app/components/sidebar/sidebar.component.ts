@@ -60,7 +60,10 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  toggleSubMenu(menu: string): void {
-    this.activeMenu = this.activeMenu === menu ? null : menu;
+  isMasterOpen = false;
+
+toggleMasterMenu() {
+  this.isMasterOpen = !this.isMasterOpen;
 }
+
 }

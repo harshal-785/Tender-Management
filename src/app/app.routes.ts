@@ -5,6 +5,10 @@ import { TendersComponent } from './components/tenders/tenders.component';
 import { CreateTenderComponent } from './components/create-tender/create-tender.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { CategoryComponent } from './components/master/category/category.component';
+import { CountryComponent } from './components/master/country/country.component';
+import { IndustryTypeComponent } from './components/master/industry-type/industry-type.component';
+import { StatusComponent } from './components/master/status/status.component';
 
 
 export const routes: Routes = [
@@ -14,6 +18,12 @@ export const routes: Routes = [
   { path: 'add-tender', component: CreateTenderComponent },
   { path: 'analytics', component: AnalyticsComponent },
   { path: 'settings', component: SettingsComponent },
+
+   // Master section routes
+   { path: 'master/category', component: CategoryComponent },
+   { path: 'master/country', component: CountryComponent },
+   { path: 'master/industry-type', component: IndustryTypeComponent },
+   { path: 'master/status', component: StatusComponent },
 ];
 
 @NgModule({

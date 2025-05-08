@@ -1,0 +1,152 @@
+<!-- status.component.html -->
+<div class="status-container">
+  <div class="page-header">
+    <h2>Status Management</h2>
+    <p>Create and manage tender status options</p>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="form-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>{{ isEditing ? 'Edit Status' : 'Add New Status' }}</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Status Name*</label>
+              <input 
+                type="text" 
+                id="name" 
+                formControlName="name" 
+                class="form-control"
+                [ngClass]="{'is-invalid': statusForm.get('name')?.invalid && statusForm.get('name')?.touched}"
+              >
+              <div *ngIf="statusForm.get('name')?.invalid && statusForm.get('name')?.touched" class="invalid-feedback">
+                <div *ngIf="statusForm.get('name')?.errors?.['required']">Status name is required.</div>
+                <div *ngIf="statusForm.get('name')?.errors?.['minlength']">Status name must be at least 2 characters.</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea 
+                id="description" 
+                formControlName="description" 
+                class="form-control"
+                rows="3"
+                [ngClass]="{'is-invalid': statusForm.get('description')?.invalid && statusForm.get('description')?.touched}"
+              ></textarea>
+              <div *ngIf="statusForm.get('description')?.invalid && statusForm.get('description')?.touched" class="invalid-feedback">
+                <div *ngIf="statusForm.get('description')?.errors?.['maxlength']">Description cannot exceed 200 characters.</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Select Color*</label>
+              <div class="color-preview" [style.background-color]="statusForm.get('color')?.value"></div>
+              <div class="color-picker">
+                <div 
+                  *ngFor="let color of predefinedColors" 
+                  class="color-option"
+                  [style.background-color]="color"
+                  [class.selected]="statusForm.get('color')?.value === color"
+                  (click)="selectColor(color)"
+                ></div>
+              </div>
+              <input type="hidden" formControlName="color">
+            </div>
+
+            <div class="form-group checkbox-group">
+              <div class="custom-control custom-checkbox">
+                <input 
+                  type="checkbox" 
+                  class="custom-control-input" 
+                  id="isDefault" 
+                  formControlName="isDefault"
+                >
+                <label class="custom-control-label" for="isDefault">
+                  Set as default status (available to all tenders)
+                </label>
+              </div>
+            </div>
+
+            <div class="status-preview">
+              <label>Status Preview:</label>
+              <div class="preview-badge" [style.background-color]="statusForm.get('color')?.value">
+                {{ statusForm.get('name')?.value || 'Status Name' }}
+              </div>
+            </div>
+
+            <div class="button-group">
+              <button type="submit" class="btn btn-primary" [disabled]="statusForm.invalid">
+                {{ isEditing ? 'Update' : 'Add' }} Status
+              </button>
+              <button *ngIf="isEditing" type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>Status List</h3>
+          <div class="search-box">
+            <input 
+              type="text" 
+              placeholder="Search statuses..." 
+              class="form-control"
+              [(ngModel)]="searchTerm"
+              (input)="filterStatuses()"
+            >
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="filteredStatuses.length === 0" class="no-data">
+            <p>No statuses found in your search.</p>
+          </div>
+          <table *ngIf="filteredStatuses.length > 0" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Created On</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let status of filteredStatuses">
+                <td>
+                  <div class="status-badge" [style.background-color]="status.color">
+                    {{ status.name }}
+                  </div>
+                </td>
+                <td>{{ status.description || 'No description' }}</td>
+                <td>
+                  <span class="badge" [ngClass]="status.isDefault ? 'badge-info' : 'badge-primary'">
+                    {{ status.isDefault ? 'Default' : 'Custom' }}
+                  </span>
+                </td>
+                <td>{{ status.createdAt | date:'medium' }}</td>
+                <td class="actions">
+                  <button class="btn btn-sm btn-primary" (click)="editStatus(status)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteStatus(status.id)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

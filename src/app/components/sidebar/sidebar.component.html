@@ -30,8 +30,40 @@
             <span>Create Tender</span>
           </a>
         </li>
-
         
+        <li class="dropdown" [class.open]="isMasterOpen">
+          <a href="javascript:void(0)" (click)="toggleMasterMenu()">
+            <i class="fas fa-database"></i>
+            <span>Master</span>
+            <i class="fas fa-chevron-down submenu-icon"></i>
+          </a>
+          <ul class="submenu">
+            <li>
+              <a routerLink="/master/category" routerLinkActive="active" (click)="closeOnMobile()">
+                <i class="fas fa-tags"></i>
+                <span>Category</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/master/country" routerLinkActive="active" (click)="closeOnMobile()">
+                <i class="fas fa-globe"></i>
+                <span>Country</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/master/industry-type" routerLinkActive="active" (click)="closeOnMobile()">
+                <i class="fas fa-industry"></i>
+                <span>Industry Type</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/master/status" routerLinkActive="active" (click)="closeOnMobile()">
+                <i class="fas fa-flag"></i>
+                <span>Status</span>
+              </a>
+            </li>
+          </ul>
+        </li>
         <li>
           <a routerLink="/analytics" routerLinkActive="active" (click)="closeOnMobile()">
             <i class="fas fa-chart-pie"></i>
